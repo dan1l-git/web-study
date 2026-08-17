@@ -9,3 +9,7 @@ class UserAlreadyExistsError(Exception):
 class InvalidCredentialsError(Exception):
     """Raised when invalid credentials are provided"""
     pass
+
+class InvalidTokenError(Exception):
+    """Raised when token is invalid or expired"""
+    pass

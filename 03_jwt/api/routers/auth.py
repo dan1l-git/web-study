@@ -1,11 +1,11 @@
 from fastapi import APIRouter, Depends, HTTPException
 from api.database import get_db
-from api.schemas.user import UserCreate, UserAuth
+from api.schemas.user import UserCreate, UserAuth, RefreshTokenRequest
 from sqlalchemy.orm import Session
 from api.repositories.user_repo import UserRepository
 from api.services.user_service import UserService
 from api.repositories.refresh_session_repo import RefreshSessionRepository
-from api.exceptions.user_exceptions import UserAlreadyExistsError, InvalidCredentialsError
+from api.exceptions.user_exceptions import UserAlreadyExistsError, InvalidCredentialsError, InvalidTokenError
 
 router = APIRouter(prefix="/auth", tags=["Auth"])
 
@@ -26,4 +26,18 @@ def login(user_in: UserAuth, user_service: UserService = Depends(get_user_servic
     try:
         return user_service.login(user_in=user_in)
     except InvalidCredentialsError as e:
+        raise HTTPException(status_code=401, detail=str(e))
+
+@router.post("/refresh")
+def refresh(body: RefreshTokenRequest, user_service: UserService = Depends(get_user_service)):
+    try:
+        return user_service.refresh_token(refresh_token=body.refresh_token)
+    except InvalidTokenError as e:
+        raise HTTPException(status_code=401, detail=str(e))
+
+@router.post("/logout")
+def logout(body: RefreshTokenRequest, user_service: UserService = Depends(get_user_service)):
+    try:
+        return user_service.logout(body.refresh_token)
+    except InvalidTokenError as e:
         raise HTTPException(status_code=401, detail=str(e))

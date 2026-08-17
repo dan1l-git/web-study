@@ -14,3 +14,6 @@ class UserResponse(BaseModel):
     username: str
     email: EmailStr
     model_config = {"from_attributes": True}
+
+class RefreshTokenRequest(BaseModel):
+    refresh_token: str

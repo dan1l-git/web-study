@@ -15,3 +15,9 @@ class RefreshSessionRepository:
 
         return refresh_session
 
+    def get_by_token(self, refresh_token: str):
+        return self.db.query(RefreshSession).filter(RefreshSession.refresh_token == refresh_token).first()
+
+    def delete(self, refresh_session: RefreshSession):
+        self.db.delete(refresh_session)
+        self.db.commit()
