@@ -9,13 +9,14 @@ from api.configuration import Configuration
 settings = Configuration()
 
 JWT_SECRET = settings.JWT_SECRET_KEY
+JWT_ALGORITHM = settings.JWT_ALGORITHM
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 
 def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
     user_repository = UserRepository(db=db)
     try:
-        payload = jwt.decode(token, JWT_SECRET, algorithms=["HS256"])
+        payload = jwt.decode(token, JWT_SECRET, algorithms=[JWT_ALGORITHM])
         user_id = payload.get("sub")
         if user_id is None:
             raise HTTPException(status_code=401, detail="Not found")
