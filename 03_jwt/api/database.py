@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
-from configuration import Configuration
+from api.configuration import Configuration
 
 settings = Configuration()
 
