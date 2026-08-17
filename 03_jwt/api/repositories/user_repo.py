@@ -24,3 +24,9 @@ class UserRepository:
         if not user:
             return None
         return user
+
+    def get_by_id(self, user_id: int):
+        user = self.db.query(User).filter(User.id == user_id).first()
+        if not user:
+            return None
+        return user
