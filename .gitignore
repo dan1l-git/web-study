@@ -150,6 +150,7 @@ activemq-data/
 # Environments
 01_task_manager/.env
 02_sql_index_research/.env
+03_jwt/.env
 .envrc
 .venv
 env/
