@@ -5,3 +5,7 @@ class UserNotFoundError(Exception):
 class UserAlreadyExistsError(Exception):
     """Raised when user already exists"""
     pass
+
+class InvalidCredentialsError(Exception):
+    """Raised when invalid credentials are provided"""
+    pass
