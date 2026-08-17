@@ -1,0 +1,15 @@
+fastapi==0.136.0
+pydantic==2.13.2
+
+python-dotenv==1.0.1
+
+uvicorn==0.44.0
+
+sqlalchemy
+psycopg2-binary
+
+pydantic_settings
+
+bcrypt
+
+pyjwt
